@@ -14,37 +14,45 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 
 # Create your objects here.
 ev3 = EV3Brick()
-
-# Write your program here.
-ev3.speaker.beep()
-
-# Initialize a motor at port A.
-claw_motor= Motor(Port.A)
-
-arm_motor = Motor(Port.B)
 turning_motor = Motor(Port.C)
+arm_motor = Motor(Port.B)
+Claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
-touch_sensor = TouchSensor(Port.S1)
-
-#rotation to the right side if angle is plus
-
-#turning_motor.run_angle(speed=100,rotation_angle=80, then=Stop.HOLD)
+base_switch = TouchSensor(Port.S1) # inte säker om det är s1, fråga eller checka!
 
 
+#turning_motor.run_until_stalled(speed, then=Stop.COAST, duty_limit=None) Det här kan funka kanske också
 
-#if angle minus it goes up
-#arm_motor.run_angle(speed=100,rotation_angle=-100, then=Stop.HOLD)
+def settings():
+    if base_switch.pressed():
+        turning_motor.reset_angel(0)
+        turning_motor.hold() # Hold it so it does not move a bit.
+        arm_motor.run_until_stalled(-25, then=Stop.COAST, duty_limit=None)
+        arm_motor.reset_angel(0)
+        claw_motor.run_until_stalled(150, then=Stop.COAST, duty_limit=50) # make the claw_motor work until stalled to the closed position.
+        claw_motor.reset_angel(0) # Make the angel zero there.
+        claw_motor.run_target(200, -120) # Open the claw by 120 degree
+        ev3.speaker.beep() # A signal that the settings are done.
 
-#claw_motor.run_angle(speed=100,rotation_angle=100, then=Stop.HOLD)
-#arm_motor.run_angle(speed=100,rotation_angle=-100, then=Stop.HOLD)
-#turning_motor.run_angle(speed=100,rotation_angle=-80, then=Stop.HOLD)
-#arm_motor.run_angle(speed=100,rotation_angle=100, then=Stop.HOLD)
+    
+def grab_thing(posit, posit2):
+    turning_motor.run_target(60, position)
+    arm_motor.run_target(30, 40) # man ska lägga en vikel som passar så att det passar settings i början.
+    claw_motor.run_until_stalled(150, then=Stop.COAST, duty_limit=50)
+    arm_motor.run_target(50,0) 
+    if color_sensor.color() == "Black":
 
-#if claw is negativ is  opene
-#claw_motor.run_angle(speed=100,rotation_angle=-100, then=Stop.HOLD)
-#print(color_sensor.color(red))
-#claw_motor.run_angle(speed=150,rotation_angle=150, then=Stop.HOLD)
-#turning_motor.reset_angle(180)
-#recognice the color of the sensor
-print(color_sensor.color())
-print(touch_sensor.pressed())
+
+    #ev3.speaker.beep() # A signal that the first step half steps of grab_thing are done.
+
+
+
+
+    
+#def start():
+for x in range(5):
+    turning_motor.run(20)
+settings()
+
+
+#start()
