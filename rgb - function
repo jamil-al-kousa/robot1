@@ -1,0 +1,17 @@
+rgb = color_sensor.rgb()
+
+def convert(string)
+    rgb_li = list(spring.split(","))
+return rgb_li
+
+
+def color_reg(rgb_li)
+    if rgb_li[0] in range (153,255):
+        print ("Color is Red")
+    elif rgb_li[1] in range (102,255):
+        print ("Color is Green")
+    elif rgb_li[2]in range (102,255):
+        print("Color is Blue")
+
+
+### Detta är en test version som inte fungerar. Behöver åtgärdas! 
