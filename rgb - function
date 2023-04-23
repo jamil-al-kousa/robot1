@@ -1,4 +1,11 @@
-rgb = color_sensor.rgb()
+ev3 = EV3Brick()
+turning_motor = Motor(Port.C)
+arm_motor = Motor(Port.B)
+claw_motor = Motor(Port.A)
+color_sensor = ColorSensor(Port.S2)
+
+
+rgb= color_sensor.rgb()
 
 def convert(string):
     rgb_li = list(string.split(','))
@@ -7,9 +14,9 @@ def convert(string):
 def color_reg(rgb_li):
     if int(rgb_li[0]) in range (0,15):
         print ("Color is Red")
-    if int(rgb_li[1]) in range (0,15):
+        elif int(rgb_li[1]) in range (38,50):
         print ("Color is Green")
-    if int(rgb_li[2]) in range (0,15):
+        elif int(rgb_li[2]) in range (0,15):
         print("Color is Blue")
 
 rgb_str = str(rgb[0]) + ',' + str(rgb[1]) + ',' + str(rgb[2])
@@ -17,6 +24,7 @@ rgb_list = convert(rgb_str)
 color_reg(rgb_list)
 
 print (color_reg(rgb_list))
+
 
 
 Denna funktion fungerar nu, det enda som krävs är att vi ställer in rätt intervall! Mashalla, Alhamdulilallah, Allahu Akbar!
