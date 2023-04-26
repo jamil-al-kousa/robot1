@@ -5,26 +5,26 @@ claw_motor = Motor(Port.A)
 color_sensor = ColorSensor(Port.S2)
 
 
-rgb= color_sensor.rgb()
+rgb = color_sensor.rgb()
+
 
 def convert(string):
     rgb_li = list(string.split(','))
     return rgb_li
 
 def color_reg(rgb_li):
-    if int(rgb_li[0]) in range (0,15):
+    if int(rgb_li[0]) in range (9,25):
         print ("Color is Red")
-        elif int(rgb_li[1]) in range (38,50):
-        print ("Color is Green")
-        elif int(rgb_li[2]) in range (0,15):
+    if int(rgb_li[2]) in range (10,30):
         print("Color is Blue")
+    if int(rgb_li[1]) in range (3,14):
+        print ("Color is Green")
 
 rgb_str = str(rgb[0]) + ',' + str(rgb[1]) + ',' + str(rgb[2])
 rgb_list = convert(rgb_str)
+
 color_reg(rgb_list)
-
-print (color_reg(rgb_list))
-
+print(color_sensor.rgb())
 
 
 Denna funktion fungerar nu, det enda som krävs är att vi ställer in rätt intervall! Mashalla, Alhamdulilallah, Allahu Akbar!
