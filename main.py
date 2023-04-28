@@ -67,7 +67,7 @@ def reboot():
 
 
 
-def takethebox(position):
+"""def takethebox(position):
     
     arm_motor.run_angle(speed=100,rotation_angle=-215)
     claw_motor.run_angle(100, -80 , then=Stop.HOLD)
@@ -76,12 +76,33 @@ def takethebox(position):
     claw_motor.run_until_stalled(50, then=Stop.HOLD, duty_limit=70)
     arm_motor.run_angle(speed=100,rotation_angle=-215)
     
+
   
-    return
+    return"""
+
+def takethebox(position):
+    #newedition
+    arm_motor.run_angle(speed=100,rotation_angle=-400)
+    print(arm_motor.angle())
+    claw_motor.run_angle(100, -80 , then=Stop.HOLD)
+    turning_motor.run_angle(speed=100,rotation_angle=-position, then=Stop.HOLD)
+
+    arm_motor.run_until_stalled(100, then=Stop.COAST, duty_limit=10)
+    print(arm_motor.angle())
+    claw_motor.run_until_stalled(50, then=Stop.HOLD, duty_limit=70)
+    wait(2000)
+    #arm_motor.run_until_stalled(100, then=Stop.HOLD, duty_limit=10)
+    
+    
+
+
+
+
 
  
 
 def place_the_box(position):
+    #arm_motor.run_angle(speed=100,rotation_angle=-215)
     turning_motor.run_angle(speed=150,rotation_angle=position, then=Stop.HOLD)
     arm_motor.run_angle(speed=100,rotation_angle=215)
     claw_motor.run_angle(80, -20 , then=Stop.HOLD)
@@ -92,6 +113,7 @@ def place_the_box(position):
     return
 
 def where_to_place(PO_RED,PO_BLUE,PO_YELLOW,PO_GREEN):
+    
     if box_color== Color.RED:
         place_the_box(PO_RED)
     elif box_color== Color.BLUE:
@@ -100,6 +122,7 @@ def where_to_place(PO_RED,PO_BLUE,PO_YELLOW,PO_GREEN):
         place_the_box(PO_YELLOW)
     elif box_color== Color.GREEN:
         place_the_box(PO_GREEN)
+    
     return
 
 """def check_arrived_boxess()
@@ -123,41 +146,57 @@ def where_to_place(PO_RED,PO_BLUE,PO_YELLOW,PO_GREEN):
      it must know where it is so it can go back and go in the loop again."""
 
 
+def check_box():
+    
+    print(claw_motor.angle())
+    claw_motor.run_angle(100, -80 , then=Stop.HOLD)
+    wait(1000)
+    print(claw_motor.angle())
+    claw_motor.run_until_stalled(-200, then=Stop.COAST, duty_limit=50) # Close the claw. Check what is the angle at the close position is? check also if there are something what is the angle.
+    print(claw_motor.angle())
+    if claw_motor.angle() < -170: # Check if the claw can close totaly.
+        claw_motor.run_target(100,0)
+        arm_motor.run_angle(speed=100,rotation_angle=-175)
+        print("NO OBJECT detected")
 
+    elif claw_motor.angle() >-170:
+        print("There is a box")
+    return
 
 
 #allt detta kommer sen att gå in i en loop for att roboten ska fungera under hela tiden
 
+
+"""#userstory5
 reboot()
+
+#claw_motor.run_angle(100, -80 , then=Stop.HOLD)
+
 #take the box from this poistion
-#takethebox(615)
-#wait(2000)
-#color_sensor.color()
-#print(color_sensor.rgb())
-#box_color=color_sensor.color()
-#print(box_color)
-#wait(8000)
+takethebox(615)
+arm_motor.run_angle(speed=100,rotation_angle=-220)
+wait(2000)
+color_sensor.color()
+print(color_sensor.rgb())
+box_color=color_sensor.color()
+print(box_color)
+wait(8000)
 
 #Place the box function when the attrbiute is 600 it means that it is going in the opposite direction
 #place_the_box(300)
 
 # THE poistions of the colors is red for first cell and then blue, yellow and green
-#where_to_place(450,450,300, 150)
-print(claw_motor.angle())
+where_to_place(450,450,300,150)"""
 
-claw_motor.run_angle(100, -80 , then=Stop.HOLD)
-wait(1000)
-print(claw_motor.angle())
 
-claw_motor.run_until_stalled(-200, then=Stop.COAST, duty_limit=50) # Close the claw. Check what is the angle at the close position is? check also if there are something what is the angle.
-print(claw_motor.angle())
-if claw_motor.angle() < -170: # Check if the claw can close totaly.
-    claw_motor.run_target(100,0)
-    arm_motor.run_angle(speed=100,rotation_angle=-175)
-    print("There are nothing bro")
 
-elif claw_motor.angle() >-170:
-    print("There are something bro")
+#there are box at a location
+
+reboot()
+takethebox(615)
+check_box()
+
+
 
 
 
