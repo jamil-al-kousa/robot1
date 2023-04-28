@@ -13,12 +13,15 @@ def convert(string):
     return rgb_li
 
 def color_reg(rgb_li):
-    if int(rgb_li[0]) in range (9,25):
+    if int(rgb_li[0]) in range (19,30) and int(rgb_li[1]) in range (12,28):
+        print("Color is Yellow")
+    elif int(rgb_li[0]) in range (9,30):
         print ("Color is Red")
-    if int(rgb_li[2]) in range (10,30):
+    elif int(rgb_li[2]) in range (12,30):
         print("Color is Blue")
-    if int(rgb_li[1]) in range (3,14):
+    elif int(rgb_li[1]) in range (3,16):
         print ("Color is Green")
+    
 
 rgb_str = str(rgb[0]) + ',' + str(rgb[1]) + ',' + str(rgb[2])
 rgb_list = convert(rgb_str)
