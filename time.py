@@ -1,4 +1,5 @@
-
+import time as tm
+import math as mt
 def hours(time1):
     list1 = mt.modf(time1)
     user_min = float(round(list1[0] * 100))
@@ -14,12 +15,14 @@ def hours(time1):
         result = hour_result_in_min + min_result
         result = result * 60
         result= int(result)
-        print("programmet startar om ", result , " Sec")
+        print(result)
+        result = result * 100
         wait(result * 100)
+        print("start nu")
     else: 
         print("The time is less than the current time, pls try again")
         input1 = float(input("What is the time sir?"))
         print(input1)
         hours(input1)
 
-time2 = hours(10.35)
+time2 = hours(10.54)
