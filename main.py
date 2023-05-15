@@ -7,9 +7,10 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
-
+#import datetime
 # This program requires LEGO EV3 MicroPython v2.0 or higher.
 # Click "Open user guide" on the EV3 extension tab for more information.
+
 
 
 # Create your objects here.
@@ -61,13 +62,17 @@ def takethebox(position):
     #nextedtion 
     # next round in the loop it would be down with open claw and att a position of the item
     arm_motor.run_angle(speed=200,rotation_angle=-400)
-    print(arm_motor.angle())
+    armMotorAngle= arm_motor.angle()
+
+    print( armMotorAngle)
+
     claw_motor.run_until_stalled(50, then=Stop.HOLD, duty_limit=70)
     claw_motor.run_angle(100, -80 , then=Stop.HOLD)
     ######## the claw is open here
     turning_motor.run_angle(speed=200,rotation_angle=-position, then=Stop.HOLD)
     arm_motor.run_until_stalled(200, then=Stop.COAST, duty_limit=10)
     print(arm_motor.angle())
+
     check_box()
     ### behövs inte
     #claw_motor.run_until_stalled(50, then=Stop.HOLD, duty_limit=70)
@@ -87,13 +92,15 @@ def place_the_box(position):
     #arm_motor.run_angle(speed=150,rotation_angle=-400)
     
     
-    wait(1150)
-    claw_motor.run_until_stalled(100, then=Stop.COAST, duty_limit=65)
+    claw_motor.run_angle(100, 50 , then=Stop.COAST)
+    #claw_motor.run_until_stalled(100, then=Stop.COAST, duty_limit=50)
+    wait(2150)
     #turning_motor.run_angle(speed=100,rotation_angle=-80, then=Stop.HOLD)
     return
 
 def where_to_place(PO_RED,PO_BLUE,PO_YELLOW,PO_GREEN):
     box_color=color_sensor.color()
+   
     
     if box_color== Color.RED:
         place_the_box(PO_RED)
@@ -120,10 +127,11 @@ def check_box():
     print(clawAngle)
     wait(1000)
    
-    claw_motor.run_until_stalled(-200, then=Stop.HOLD, duty_limit=70) # Close the claw. Check what is the angle at the close position is? check also if there are something what is the angle.
+    claw_motor.run_until_stalled(-200, then=Stop.HOLD, duty_limit=50) # Close the claw. Check what is the angle at the close position is? check also if there are something what is the angle.
     
     print(claw_motor.angle())
-    if  -74 < claw_motor.angle() < 0 : # Check if the claw can close totaly.
+    wait(1000)
+    if  -80 < claw_motor.angle() < 0 : # Check if the claw can close totaly.
         ##claw_motor.run_target(100,0)
         #arm_motor.run_angle(speed=100,rotation_angle=-175)
         print(" OBJECT detected")
@@ -132,7 +140,7 @@ def check_box():
         print("There is no box")
         claw_motor.run_angle(100, 80 , then=Stop.HOLD)
         arm_motor.run_angle(speed=200,rotation_angle=-400)
-        wait(10000)
+        wait(3000)
         arm_motor.run_angle(speed=200,rotation_angle=400)
         check_box()
 
@@ -145,60 +153,48 @@ def check_box():
 
 #allt detta kommer sen att gå in i en loop for att roboten ska fungera under hela tiden
 
-"""
-#userstory5
-reboot()
+def colorPrinter():
+    box_color=color_sensor.color()
 
-#claw_motor.run_angle(100, -80 , then=Stop.HOLD)
-
-#take the box from this poistion
-takethebox(615)
-arm_motor.run_angle(speed=100,rotation_angle=-240)
-wait(2000)
-color_sensor.color()
-print(color_sensor.rgb())
-box_color=color_sensor.color()
-print(box_color)
-wait(8000)
-
-#Place the box function when the attrbiute is 600 it means that it is going in the opposite direction
-#place_the_box(300)
-
-# THE poistions of the colors is red for first cell and then blue, yellow and green
-where_to_place(450,450,300,150)
-"""
+    if box_color == Color.BROWN :
+        print("Color.YELLOW")
+    elif box_color == Color.BLACK :
+        print("Color.BLUE")
+    else :
+        print(box_color)
+    return 
 
 
-#there are box at a location
-"""
-reboot()
-takethebox(615)
-check_box()
 
-"""
 
-def loop():
+def loop(PO_RED1, PO_BLUE1,PO_YELLOW1, PO_GREEN1):
     reboot()
     #arm_motor.run_angle(speed=100,rotation_angle=-400)
     pickup=615
     count= 0
+    armMotorAngle =0
     while True:
        
         takethebox(pickup)
 
         
+        armMotorAngle1= arm_motor.angle()
+     
+        wait(1000)
+        tothesensorMove =-235 - armMotorAngle1 
+        arm_motor.run_angle(speed=100,rotation_angle=tothesensorMove)
+        wait(1000)
         
-        arm_motor.run_angle(speed=100,rotation_angle=-240)
+        colorPrinter()
+       
+
+
+       
         wait(1000)
-        color_sensor.color()
-        print(color_sensor.rgb())
-        box_color=color_sensor.color()
-        print(box_color)
-        wait(1000)
-        PO_RED= 450
-        PO_BLUE= 450
-        PO_YELLOW= 300
-        PO_GREEN= 150
+        PO_RED= PO_RED1
+        PO_BLUE= PO_BLUE1
+        PO_YELLOW= PO_YELLOW1
+        PO_GREEN= PO_GREEN1
         turning_motor.reset_angle(0)
         
         
@@ -211,14 +207,25 @@ def loop():
         
     return
 
+   
+
+
+   
+# first one red, THhen blue, yellow, green
+#loop(150,450, 300, 450)
+
+
+
+#colorPrinter()
+
+
+
+
+
+
+
+
     
 
-loop()
-#check_box()
-
-
-
-
-
-
-
+# first one red, THhen blue, yellow, green
+loop(150,450, 300, 450)
