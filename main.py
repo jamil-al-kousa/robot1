@@ -220,12 +220,6 @@ def loop(PO_RED1, PO_BLUE1,PO_YELLOW1, PO_GREEN1):
 
 
 
-
-
-
-
-
-    
-
+wait(10000)
 # first one red, THhen blue, yellow, green
 loop(150,450, 300, 450)
