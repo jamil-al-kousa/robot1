@@ -19,8 +19,8 @@ To facilitate coding, it is necessary to import specific libraries that enable t
 
 To initiate coding, please copy and paste the provided code into your Visual Studio Code environment.
 
-##############################################
-#!/usr/bin/env pybricks-micropython
+%%%%%
+comment- !/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -30,22 +30,22 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 from pybricks.messaging import BluetoothMailboxClient, TextMailbox
 
-# This program requires LEGO EV3 MicroPython v2.0 or higher.
-# Click "Open user guide" on the EV3 extension tab for more information.
+This program requires LEGO EV3 MicroPython v2.0 or higher.
+Click "Open user guide" on the EV3 extension tab for more information.
 
-# Create your objects here.
+comment- Create your objects here.
 ev3 = EV3Brick()
 
-# Write your program here.
+comment- Write your program here.
 ev3.speaker.beep()
 
-# Initialize a motor at port A.
+comment- Initialize a motor at port A.
 claw_motor= Motor(Port.A)
 arm_motor = Motor(Port.B)
 turning_motor = Motor(Port.C)
 color_sensor = ColorSensor(Port.S2)
 touch_sensor = TouchSensor(Port.S1)
-###################################
+%%%%%%%
 
 Every thing you need to code and to understand how things work is found in the link below
 
@@ -55,13 +55,13 @@ Please note that certain libraries that are not part of MicroPython may not func
 
 The only step left is to connect your PC with the robot and you can push fn + F5 button to run the code.
 
-
+comments#
 Here are some useful inforamtion about the robot
-# the robot can turn max 600 from pickup postion
-# the max value that is good for using the arm is 400
-# claw motor open and close fully if it is -80 degree
-# If turning motor angle is plus the motor turn to left
-# if arm angle is minus it goes up
+the robot can turn max 600 from pickup postion
+the max value that is good for using the arm is 400
+claw motor open and close fully if it is -80 degree
+If turning motor angle is plus the motor turn to left
+if arm angle is minus it goes up
 
 
 
@@ -71,7 +71,7 @@ Here are some useful inforamtion about the robot
 
 
 wait(arg1) # first argument
-# first one red, Then blue, yellow, green
+comment-first one red, Then blue, yellow, green
 loop(arg2,arg3, arg4, arg5)
 
 This code instructs the robot to perform a series of actions based on the provided inputs:
@@ -89,7 +89,7 @@ The fifth input represents the position of the box with the green color. This bo
 The valid range for box positions is between 0 and 600, with 0 being the pickup position.
 
 wait(10000)
-# first one red, Then blue, yellow, green
+comment- first one red, Then blue, yellow, green
 loop(150,450, 300, 600)
 
 ## Features
